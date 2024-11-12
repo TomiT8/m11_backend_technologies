@@ -1,36 +1,147 @@
 # Projekt Hollymovies
 
-# Finálny projekt - rady
+Filmová databáze.
 
-- jeden člen týmu vytvorí projekt
-  - nainštaluje Django:
+## Struktura projektu
+- hollymovies - složka projektu (obsahuje informace o celém projektu)
+  - `__init.py__` - je zde jen proto, aby daná složka byla package
+  - `asgi.py` - nebudeme používat
+  - `settings.py` - nastavení celého projektu
+  - `urls.py` - zde jsou definované url cesty
+  - `wsgi.py` - nebudeme používat
+
+## Spuštění projektu/serveru
+```bash
+python manage.py runserver
+```
+
+Případně můžeme zadat i číslo portu:
+```bash
+python manage.py runserver 8001
+```
+
+## Funkcionalita
+
+- [ ] informace o filmu
+- [ ] informace o režisérech/hercích
+- [ ] vkládání/editace/mazání filmu, režiséra, herce,...
+- [ ] hodnocení filmu
+- [ ] filtrování filmů na základě žánru, roku, herce, země...
+- [ ] seřazení filmů podle ratingu, roku,...
+- [ ] vyhledávání filmu/režiséra/herce...
+
+## Databáze
+
+- [ ] movie
+  - [ ] id
+  - [ ] title_orig
+  - [ ] title_cz
+  - [ ] year
+  - [ ] length (min)
+  - [ ] novel_id -> novel
+  - [ ] productions (n:m -> production_company)
+  - [ ] directors (n:m -> creator)
+  - [ ] actors (n:m -> creator)
+  - [ ] countries (n:m -> country)
+  - [ ] genres (n:m -> genre)
+  - [ ] rating
+  - [ ] medias (n:m -> media)
+  - [ ] awards (n:m -> award)
+  - [ ] description
+  - [ ] reviews -> review
+- [ ] review
+  - [ ] id
+  - [ ] movie_id -> movie
+  - [ ] reviewer -> user 
+  - [ ] rating
+  - [ ] comment 
+  - [ ] time  
+- [ ] award
+  - [ ] id
+  - [ ] name (-> award_name)
+  - [ ] category (-> category_name)
+  - [ ] year 
+- [ ] production_company
+  - [ ] id
+  - [ ] name
+  - [ ] foundation_year
+  - [ ] country_id
+- [ ] novel
+  - [ ] id  
+  - [ ] title
+  - [ ] author -> creator
+- [ ] creator
+  - [ ] id
+  - [ ] first_name
+  - [ ] last_name
+  - [ ] date_of_birth
+  - [ ] date_of_death
+  - [ ] nationality -> country
+  - [ ] biography
+  - [ ] awards (n:m -> award)
+  - [ ] movies_actor (n:m -> movie)
+  - [ ] movies_director (n:m -> movie)
+- [ ] genre
+  - [ ] id
+  - [ ] name
+- [ ] country
+  - [ ] id
+  - [ ] name
+- [ ] user
+  - [ ] id
+  - [ ] username
+  - [ ] first_name
+  - [ ] last_name
+- [ ] media
+  - [ ] id
+  - [ ] type (image/video/text/sound)
+  - [ ] url
+  - [ ] movie_id -> movie
+  - [ ] actors (n:m -> creators)
+  - [ ] description
+
+# Finální projekt - rady
+
+- jeden člen týmu vytvoří projekt
+  - nainstaluje Django:
 ```bash
 pip install django
 ```
-  - vytvorí súbor requirements.txt
+  - vytvoří soubor requirements.txt
 ```bash
 pip freeze > requirements.txt
 ```
-- vytvorí Django projekt
+  - vytvoří Django projekt
 ```bash
-django-admin statprojest <nazov_projektu>
+django-admin startproject <nazev_projektu> . 
 ```
-- vytvorí git repozitár
-  - vytvorí .gitignore súbor
-  - odošle ho na GitHub
-  - nazdieľqa ostatným členom v týme adresu repozitára
-  - nastaví spolupracovníky (Settings -> Collaborate -> add people)
-- ostatný členovia
-  - naklonujú si projekt
-  - vytvorí virtuálne prostredie (.venv)
-  - nainštalujú potrebné balíčky zo súboru requiriments.txt
+  - nainstaluje dotenv:
 ```bash
-git install -r requiriments.txt
+pip install python-dotenv
 ```
-- vytvoriť readme.md súbor
+  - vytvoří soubor `.env`, který bude obsahovat citlivé informace
+  - vytvoří git repozitář
+    - vytvoří .gitignore soubor 
+    - do .gitignore vloží:
+    ```git
+    /.idea/*
+    /db.sqlite3
+    /.env
+    ```
+    - odešle ho na GitHub
+    - nasdílí ostatním členům v týmu adresu repozitáře
+    - nastaví spolupracovníky (Settings -> Collaborators -> Add people)
+- ostatní členové
+  - naklonují si projekt
+  - vytvoří virtuální prostředí (.venv)
+  - nainstalují potřebné balíčky ze souboru requirements.txt
+  - vytvoří `.env` soubor obsahující SECURITY_KEY
+```bash
+pip install -r requirements.txt
+```
+- vytvořit readme.md soubor
   - popis projektu
-  - môže byť anglicky (preferované) alebo česky
-  - môže obsahovať ER diagram
-  - môže obsahovať screenshoty
-  - 
-# m11_backend_technologies
+  - může být anglicky (preferováno) nebo česky
+  - může obsahovat ER diagram
+  - může obsahovat screenshoty
+
